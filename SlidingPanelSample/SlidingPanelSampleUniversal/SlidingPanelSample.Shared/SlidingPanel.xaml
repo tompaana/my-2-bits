@@ -1,0 +1,199 @@
+﻿<UserControl
+    x:Name="thisControl"
+    x:Class="SlidingPanelSample.SlidingPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SlidingPanelSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    ManipulationMode="All"
+    mc:Ignorable="d"
+    d:DesignHeight="740" d:DesignWidth="480">
+
+    <UserControl.Resources>
+        <Storyboard x:Name="slideUpAnimation" Completed="OnSlideUpAnimationCompleted">
+            <DoubleAnimation
+                x:Name="slideUpAnimationTransformY"
+                Storyboard.TargetName="panelTranslateTransform"
+                Storyboard.TargetProperty="Y"
+                To="0.0"
+                Duration="0:0:0.4" />
+            <DoubleAnimation
+                x:Name="slideUpAnimationFullscreenPanelOpacity"
+                Storyboard.TargetProperty="Opacity"
+                Storyboard.TargetName="fullscreenPanel"
+                To="1.0"
+                Duration="0:0:0.4" />
+            <DoubleAnimation
+                x:Name="slideUpAnimationMinimizedPanelOpacity"
+                Storyboard.TargetProperty="Opacity"
+                Storyboard.TargetName="minimizedPanel"
+                To="0.0"
+                Duration="0:0:0.4" />
+        </Storyboard>
+        <Storyboard x:Name="slideDownAnimation" Completed="OnSlideDownAnimationCompleted">
+            <DoubleAnimation
+                x:Name="slideDownAnimationTransformY"
+                Storyboard.TargetName="panelTranslateTransform"
+                Storyboard.TargetProperty="Y"
+                To="{Binding Path=MaxTransformY, ElementName=thisControl}"
+                Duration="0:0:0.4" />
+            <DoubleAnimation
+                x:Name="slideDownAnimationFullscreenPanelOpacity"
+                Storyboard.TargetProperty="Opacity"
+                Storyboard.TargetName="fullscreenPanel"
+                To="0.0"
+                Duration="0:0:0.4" />
+            <DoubleAnimation
+                x:Name="slideDownAnimationMinimizedPanelOpacity"
+                Storyboard.TargetProperty="Opacity"
+                Storyboard.TargetName="minimizedPanel"
+                To="1.0"
+                Duration="0:0:0.4" />        
+        </Storyboard>
+
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="Black">
+
+        <!-- Snapshots of the two panels (for optimizing slide animation)
+        
+             Make sure the height of minimizedPanelSnapshot matches the height
+             of the actual minimized panel. -->
+        <Image
+            x:Name="fullscreenPanelSnapshot"
+            Margin="0"
+            Width="480"
+            Height="{Binding Path=FullscreenPanelHeight, ElementName=thisControl}"
+            Stretch="UniformToFill"
+            Visibility="Collapsed" />
+        <Image
+            x:Name="minimizedPanelSnapshot"
+            Margin="0"
+            VerticalAlignment="Top"
+            Width="480"
+            Height="100"
+            Stretch="UniformToFill"
+            Visibility="Collapsed" />
+
+        <Grid
+            x:Name="fullscreenPanel"
+            Margin="0"
+            Visibility="{Binding Path=Minimized, ElementName=thisControl, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Background image -->
+            <Image
+                Grid.RowSpan="4"
+                Stretch="Fill"
+                Source="Assets/Background.jpg" />
+
+            <!-- Minimize button -->
+            <Button
+                Grid.Row="0"
+                Content="Tap this button to minimize the panel"
+                Click="OnMinimizeButtonClicked">
+                <Button.Background>
+                    <SolidColorBrush Color="#aa000000" />
+                </Button.Background>
+            </Button>
+
+            <!-- Drag area with image -->
+            <Grid x:Name="dragAreaGrid" Grid.Row="1" Margin="0">
+                <Image
+                    x:Name="dragAreaImage"
+                    Width="400"
+                    Height="400"
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stretch="Uniform"
+                    Source="Assets/MicrosoftLogo.png" />
+                <TextBlock
+                    Margin="60,12"
+                    VerticalAlignment="Bottom"
+                    Foreground="Black"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    TextWrapping="Wrap"
+                    Text="Drag the panel downwards from the logo image" />
+            </Grid>
+
+            <StackPanel Grid.Row="2" Margin="0,0">
+                <CheckBox
+                    x:Name="UseSnapshotsCheckBox"
+                    Margin="12,12,12,0"
+                    Content="Use snapshots"
+                    IsChecked="{Binding UseSnapshots, ElementName=thisControl, Mode=TwoWay}"/>
+                <TextBlock
+                    Margin="12,0"
+                    Foreground="White"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    TextWrapping="Wrap"
+                    Text="Bacon ipsum dolor amet shoulder meatball pork chop ground round ball tip tail shankle, prosciutto pig. Drumstick hamburger pork loin t-bone, capicola bacon frankfurter porchetta shoulder boudin pastrami bresaola short loin filet mignon ham." />
+                <StackPanel.Background>
+                    <SolidColorBrush Color="#77000000" />
+                </StackPanel.Background>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Minimized panel -->
+        <Button
+            x:Name="minimizedPanel"
+            Width="480"
+            Height="100"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            BorderThickness="0"
+            Visibility="{Binding Path=Minimized, ElementName=thisControl, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Click="OnMinimizedPanelClicked">
+            <Button.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Width="63"
+                        Height="63"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Source="Assets/MicrosoftLogo.png" />
+                    <Grid
+                        Grid.Column="1"
+                        VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Foreground="White"
+                            Text="Tap this bar" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Style="{StaticResource SubheaderTextBlockStyle}"
+                            Foreground="White"
+                            Text="to maximize" />
+                    </Grid>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="panelTranslateTransform" />
+        </Grid.RenderTransform>
+    </Grid>
+
+</UserControl>
