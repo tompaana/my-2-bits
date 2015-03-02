@@ -1,0 +1,78 @@
+﻿<UserControl
+    x:Name="thisControl"
+    x:Class="TickTick.TextTickerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="1200"
+
+    FontFamily="{StaticResource ContentControlThemeFontFamily}"
+    FontSize="24"
+    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+    
+    d:DesignHeight="32" d:DesignWidth="480">
+
+    <!-- For Windows Phone Silverlight you can replace the definitions above with the following: -->
+    <!--
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    -->
+    
+    <UserControl.Resources>
+        <Storyboard x:Name="scrollTickerStoryBoard" Completed="OnScrollTickerStoryBoardCompleted">
+            <DoubleAnimationUsingKeyFrames
+                Storyboard.TargetName="tickerTextBlockTranslateTransform"
+                Storyboard.TargetProperty="X">
+                <LinearDoubleKeyFrame x:Name="tickerTextXTarget" KeyTime="0:0:8" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames
+                Storyboard.TargetName="trimmedTickerTextBlockTranslateTransform"
+                Storyboard.TargetProperty="X">
+                <LinearDoubleKeyFrame x:Name="trimmedTickerTextXTarget" KeyTime="0:0:8" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.Clip>
+            <RectangleGeometry x:Name="gridClipRect" />
+        </Grid.Clip>
+
+        <TextBlock
+            x:Name="tickerTextBlock"
+            Width="{Binding Width, ElementName=thisControl}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Foreground="{Binding Path=Foreground, ElementName=thisControl}"
+            FontFamily="{Binding Path=FontFamily, ElementName=thisControl}"
+            FontSize="{Binding Path=FontSize, ElementName=thisControl}"
+            Text="{Binding Path=Text, ElementName=thisControl}">
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="tickerTextBlockTranslateTransform" />
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        
+        <TextBlock
+            x:Name="trimmedTickerTextBlock"
+            MaxWidth="{Binding Path=VisibleWidth, ElementName=this}"
+            Width="{Binding Path=VisibleWidth, ElementName=this}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Foreground="{Binding Path=Foreground, ElementName=thisControl}"
+            FontFamily="{Binding Path=FontFamily, ElementName=thisControl}"
+            FontSize="{Binding Path=FontSize, ElementName=thisControl}"
+            TextTrimming="WordEllipsis"
+            Text="{Binding Path=Text, ElementName=thisControl}">
+            <TextBlock.RenderTransform>
+                <TranslateTransform x:Name="trimmedTickerTextBlockTranslateTransform" />
+            </TextBlock.RenderTransform>
+        </TextBlock>
+
+    </Grid>
+</UserControl>

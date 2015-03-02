@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="TickTick.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TickTick"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Image
+            Grid.RowSpan="2"
+            Stretch="Fill"
+            Source="Assets/Background.jpg" />
+
+        <Grid Grid.Row="0" Height="60" Background="#aa000000">
+            <TextBlock
+                Margin="12"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                Foreground="White"
+                Text="TICK TICK" />
+        </Grid>
+        
+        <Grid Grid.Row="1" Background="#aa000000">
+            <StackPanel Margin="24">
+                <local:TextTickerControl
+                    Foreground="White"
+                    VisibleWidth="450"
+                    StartDelayInMilliseconds="4000"
+                    Text="A news ticker, sometimes called a 'crawler' or 'slide', resides in the lower third of the" />
+                <local:TextTickerControl
+                    Foreground="White"
+                    VisibleWidth="450"
+                    StartDelayInMilliseconds="8000"
+                    Text="television screen space on television news networks dedicated to presenting headlines or minor" />
+                <local:TextTickerControl
+                    Foreground="White"
+                    VisibleWidth="450"
+                    StartDelayInMilliseconds="12000"
+                    Text="pieces of news. It may also refer to a long display seen around the front of some buildings." />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
