@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="DarkGreen">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -20,7 +20,20 @@
                 Foreground="White"
                 Text="SLIDING PANEL SAMPLE (UNIVERSAL)" />
         </Grid>
-        <local:SlidingPanel
-            Grid.Row="1" />
+        
+        <StackPanel Grid.Row="1" Margin="12">
+            <TextBlock
+                Style="{ThemeResource BodyTextBlockStyle}"
+                Foreground="White"
+                TextWrapping="Wrap"
+                Text="This sample is hosted in GitHub:" />
+            <HyperlinkButton
+                Foreground="White"
+                FontSize="24"
+                NavigateUri="https://github.com/tompaana/my-2-bits/tree/master/SlidingPanelSample"
+                Content="github.com/tompaana/my-2-bits/" />
+        </StackPanel>
+
+        <local:SlidingPanel Grid.Row="1" />
     </Grid>
 </Page>

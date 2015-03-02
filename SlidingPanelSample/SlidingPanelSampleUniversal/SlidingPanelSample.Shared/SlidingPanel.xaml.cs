@@ -401,12 +401,14 @@ namespace SlidingPanelSample
                 minimizedPanel.Visibility = Visibility.Visible;
                 minimizedPanel.Opacity = 1.0d;
                 fullscreenPanel.Visibility = Visibility.Collapsed;
+                TransitionState = 1.0d;
             }
             else
             {
                 fullscreenPanel.Visibility = Visibility.Visible;
                 fullscreenPanel.Opacity = 1.0d;
                 minimizedPanel.Visibility = Visibility.Collapsed;
+                TransitionState = 0.0d;
             }
 
             fullscreenPanelSnapshot.Visibility = Visibility.Collapsed;

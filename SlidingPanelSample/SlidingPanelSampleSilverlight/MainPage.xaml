@@ -45,8 +45,21 @@
             <TextBlock Text="SLIDING PANEL SAMPLE (SILVERLIGHT)" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
         </StackPanel>
 
-        <local:SlidingPanel
-            Grid.Row="1" />
+        <StackPanel Grid.Row="1" Margin="12" Background="DarkGreen">
+            <TextBlock
+                Style="{StaticResource PhoneTextNormalStyle}"
+                Foreground="White"
+                TextWrapping="Wrap"
+                Text="This sample is hosted in GitHub:" />
+            <HyperlinkButton
+                Foreground="White"
+                FontSize="24"
+                TargetName="_blank"
+                NavigateUri="https://github.com/tompaana/my-2-bits/tree/master/SlidingPanelSample"
+                Content="github.com/tompaana/my-2-bits/" />
+        </StackPanel>
+        
+        <local:SlidingPanel Grid.Row="1" />
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
             aligned on common boundaries.  The image has a top margin of -32px to

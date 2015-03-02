@@ -118,6 +118,12 @@
     <None Include="SlidingPanelSample.Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\SlidingPanelSample.WindowsPhone\Assets\Background.jpg">
+      <Link>Assets\Background.jpg</Link>
+    </Content>
+    <Content Include="..\SlidingPanelSample.WindowsPhone\Assets\MicrosoftLogo.png">
+      <Link>Assets\MicrosoftLogo.png</Link>
+    </Content>
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
