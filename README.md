@@ -36,4 +36,6 @@ without wrapping.
 
 **Supported platforms:** Windows Universal (Windows Store Apps and Windows Phone 8.1), Windows Phone Silverlight
 
+[**Read more >**](https://github.com/tompaana/my-2-bits/tree/master/TickTick)
+
 ---
