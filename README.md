@@ -18,6 +18,8 @@ Phone Silverlight. The trick is not needed on newer platforms.
 
 **Supported platforms:** Windows Universal (Windows Store Apps and Windows Phone 8.1), Windows Phone Silverlight
 
+[**Read more >**](https://github.com/tompaana/my-2-bits/blob/master/SlidingPanelSample/README.md)
+
 ### Tick Tick ###
 
 TBD
