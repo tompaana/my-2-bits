@@ -29,6 +29,7 @@ essential user interface component. He had no choice but to create one himself,
 but the time was running out...*
 
 ![Screenshot](https://raw.githubusercontent.com/tompaana/my-2-bits/master/TickTick/Screenshots/TickTickScreenshotSmall.png)
+<br />*Three text ticker controls in `StackPanel`*
 
 **Description:** A custom text ticker user control: A text component, which
 scrolls to display the full text, if the text does not fit on a single line
