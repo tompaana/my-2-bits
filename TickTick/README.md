@@ -8,7 +8,7 @@ without wrapping.
 **Supported platforms:** Windows Universal (Windows Store Apps and Windows Phone 8.1), Windows Phone Silverlight
 
 ![Screenshot](https://raw.githubusercontent.com/tompaana/my-2-bits/master/TickTick/Screenshots/TickTickScreenshotSmall.png)
-*Three text ticker controls in `StackPanel`*
+<br />*Three text ticker controls in `StackPanel`*
 
 I found myself in that rare situation, where nothing else but a text ticker UI
 component could fulfil the need in the app I was building. This seldom used
