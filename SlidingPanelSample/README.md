@@ -8,7 +8,8 @@ Phone Silverlight. The trick is not needed on newer platforms.
 **Supported platforms:** Windows Universal (Windows Store Apps and Windows Phone 8.1), Windows Phone Silverlight
 
 ![Screenshot 1](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot1Small.png)&nbsp;
-![Screenshot 2](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot2Small.png)
+![Screenshot 2](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot2Small.png)&nbsp;
+![Screenshot 3](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot3Small.png)
 
 
 I was working on a project and one of the tasks assigned to me was to create a

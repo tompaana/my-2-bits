@@ -12,7 +12,8 @@ Tyler sort of way. No fear. No distractions. The ability to let that which does
 not matter truly slide."*
 
 ![Screenshot 1](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot1Small.png)&nbsp;
-![Screenshot 2](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot2Small.png)
+![Screenshot 2](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot2Small.png)&nbsp;
+![Screenshot 3](https://raw.githubusercontent.com/tompaana/my-2-bits/master/SlidingPanelSample/Screenshots/SlidingPanelSampleSLScreenshot3Small.png)
 
 **Description:** A self-contained, custom user control, a panel that can be
 dragged and animated. Provides a performance optimization trick for Windows
