@@ -42,8 +42,9 @@ complete, the snapshots are hidden and the actual layout shown again.
 
 As said, this trick is only needed in Silverlight as the performance is superb
 in Universal apps, when animating the layout regardless of its complexity.
-Fortunately so, because rendering a layout to a bitmap is not straightforward
-in Universal apps at all.
+<strike>Fortunately so, because rendering a layout to a bitmap is not straightforward
+in Universal apps at all.</strike> Rendering a layout to a bitmap in Universal apps
+is easily accomplished using [RenderTargetBitmap class](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.xaml.media.imaging.rendertargetbitmap).
 
 This sample provides a version of the panel for both Universal apps and
 Silverlight. Even with the optimization trick in Silverlight, the performance is
