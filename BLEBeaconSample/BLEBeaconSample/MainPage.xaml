@@ -1,0 +1,156 @@
+﻿<Page
+    x:Class="BLEBeaconSample.MainPage"
+    x:Name="thisPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BLEBeaconSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <local:InvertValueConverter x:Key="InvertValueConverter" />
+        <local:BoolToAdvertisingButtonTextConverter x:Key="AdvertisingButtonTextConverter" />
+        
+        <DataTemplate x:Name="scannerDataTemplate">
+            <Grid MinWidth="320" Margin="0,0,0,24">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ProgressBar
+                    Margin="0"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    IsIndeterminate="True"
+                    Visibility="{Binding Path=IsWatcherStarted, ElementName=thisPage, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <ListBox
+                    Margin="0,6,0,0"
+					Background="Transparent"
+					Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                    BorderBrush="Transparent"
+					ItemsSource="{Binding Path=BeaconCollection, ElementName=thisPage}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:BeaconUserControl />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="advertiserDataTemplate">
+            <Grid MinWidth="320">
+                <ProgressBar
+                    Margin="0"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    IsIndeterminate="True"
+                    Visibility="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <StackPanel Margin="0,6,0,0">
+                    <TextBlock
+                        Margin="0,6,0,0"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        FontWeight="ExtraLight"
+                        Text="Proximity UUID" />
+                    <TextBox
+                        x:Name="proximityUuidTextBox"
+                        Margin="0,6,0,0"
+                        MaxLength="36"
+                        Text="{Binding Path=ProximityUuid, ElementName=thisPage}"
+                        IsEnabled="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource InvertValueConverter}}"
+                        TextChanged="OnAdvertisingTextBoxTextChanged" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*" />
+                            <ColumnDefinition Width=".5*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock
+						        Margin="0,12,0,0"
+								Style="{ThemeResource BodyTextBlockStyle}"
+								FontWeight="ExtraLight"
+								Text="Major" />
+                            <TextBox
+								x:Name="majorTextBox"
+                                Margin="0,6,6,0"
+                                InputScope="Number"
+                                Text="{Binding Path=Major, ElementName=thisPage, Mode=TwoWay}"
+                                IsEnabled="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource InvertValueConverter}}"
+                                TextChanged="OnAdvertisingTextBoxTextChanged" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock
+								Margin="6,12,0,0"
+								Style="{ThemeResource BodyTextBlockStyle}"
+								FontWeight="ExtraLight"
+								Text="Minor" />
+                            <TextBox
+								x:Name="minorTextBox"
+                                Margin="6,6,0,0"
+                                InputScope="Number"
+                                Text="{Binding Path=Minor, ElementName=thisPage, Mode=TwoWay}"
+                                IsEnabled="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource InvertValueConverter}}"
+                                TextChanged="OnAdvertisingTextBoxTextChanged" />
+                        </StackPanel>
+                    </Grid>
+                    <Button
+                        x:Name="toggleAdvertisingButton"
+                        Margin="0,18,0,0"
+                        Click="OnTogglePublisherButtonClickedAsync">
+                        <Button.Content>
+                            <TextBlock
+                                x:Name="toggleAdvertisingButtonContent"
+                                Style="{ThemeResource SubtitleTextBlockStyle}"
+                                Text="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource AdvertisingButtonTextConverter}}" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>        
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Hub x:Name="hub">
+            <Hub.Header>
+                <Grid>
+                    <TextBlock
+                        x:Name="pageTitle"
+                        x:Uid="Header"
+                        VerticalAlignment="Top"
+                        Style="{StaticResource HeaderTextBlockStyle}"
+                        IsHitTestVisible="false"
+                        TextWrapping="NoWrap"
+                        Text="beacon sample" />
+                </Grid>
+            </Hub.Header>
+            <HubSection ContentTemplate="{StaticResource scannerDataTemplate}">
+                <HubSection.Header>
+                    <TextBlock
+						Style="{StaticResource SubheaderTextBlockStyle}"
+						Text="scanner" />
+                </HubSection.Header>
+            </HubSection>
+            <HubSection ContentTemplate="{StaticResource advertiserDataTemplate}">
+                <HubSection.Header>
+                    <TextBlock
+						Style="{StaticResource SubheaderTextBlockStyle}"
+						Text="advertiser" />
+                </HubSection.Header>
+            </HubSection>
+        </Hub>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarToggleButton
+                    x:Name="toggleWatcherButton"
+                    Label="scan for beacons"
+                    Icon="Play"
+                    IsChecked="False"
+                    Click="OnToggleWatcherButtonClickedAsync" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
