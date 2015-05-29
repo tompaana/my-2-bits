@@ -98,15 +98,15 @@ namespace BLEBeaconSample
         /// 
         /// The expected specification of the data is as follows:
         /// 
-        /// Byte(s)		Name
+        /// Byte(s)     Name
         /// --------------------------
-        /// 0-1			Company ID (0x004C)
-        /// 2			Beacon Type (0x02)
+        /// 0-1         Company ID
+        /// 2           Beacon Type
         /// 3           Data length after (0x15 -> 21 bytes)
-        /// 4-19		Proximity UUID
-        /// 20-21		Major
-        /// 22-23		Minor
-        /// 24			Measured Power
+        /// 4-19        Proximity UUID
+        /// 20-21       Major
+        /// 22-23       Minor
+        /// 24          Measured Power
         /// 
         /// The minimum length of the given byte array is 25, and if it is longer, everything
         /// after the 25th bit is ignored.
