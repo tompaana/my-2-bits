@@ -5,6 +5,21 @@ dumping code, which I think could, even remotely, be useful to someone.
 
 ---
 
+## BLE Beacon Sample ##
+
+*At any moment now. The seas were stormy the dark night. Then, finally, he saw
+a speck of light in the distance. The old, faithful beacon!*
+
+![Screenshot 1](https://raw.githubusercontent.com/tompaana/my-2-bits/master/BLEBeaconSample/Doc/Screenshot.png)
+
+**Description:** A sample project demonstrating how to scan for Bluetooth LE
+(BLE) beacons and how to turn a Windows device into a beacon. No background
+functionality included.
+
+**Supported platforms:** Windows 10 (Technical Preview)
+
+[**Read more >**](https://github.com/tompaana/my-2-bits/blob/master/BLEBeaconSample)
+
 ## Sliding Panel Sample ##
 
 *"You had to give it to him: he had a plan. And it started to make sense, in a
