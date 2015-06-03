@@ -141,7 +141,7 @@ namespace BLEBeaconSample
                 data = ChangeInt16ArrayEndianess(data);
             }
 
-            beacon.CompanyId = BitConverter.ToInt16(data, 0); // Bytes 0-1		
+            beacon.CompanyId = BitConverter.ToInt16(data, 0); // Bytes 0-1        
             beacon.Major = BitConverter.ToUInt16(data, 20); // Bytes 20-21
             beacon.Minor = BitConverter.ToUInt16(data, 22); // Bytes 22-23
 

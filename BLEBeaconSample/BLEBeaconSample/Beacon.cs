@@ -4,8 +4,8 @@ using System.Threading;
 
 namespace BLEBeaconSample
 {
-	public class Beacon : INotifyPropertyChanged
-	{
+    public class Beacon : INotifyPropertyChanged
+    {
         private const int BeaconNotInRangeTimeoutInSeconds = 2;
         private const int LastSeenTimerTimeoutInMilliseconds = 1000;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -25,12 +25,12 @@ namespace BLEBeaconSample
         }
 
         private string _proximityUuid;
-		public string ProximityUuid
-		{
-			get
-			{
+        public string ProximityUuid
+        {
+            get
+            {
                 return _proximityUuid;
-			}
+            }
             set
             {
                 if (string.IsNullOrEmpty(_proximityUuid) || !_proximityUuid.Equals(value))
@@ -39,15 +39,15 @@ namespace BLEBeaconSample
                     NotifyPropertyChanged("ProximityUuid");
                 }
             }
-		}
+        }
 
         private UInt16 _major;
-		public UInt16 Major
-		{
-			get
-			{
+        public UInt16 Major
+        {
+            get
+            {
                 return _major;
-			}
+            }
             set
             {
                 if (_major != value)
@@ -56,15 +56,15 @@ namespace BLEBeaconSample
                     NotifyPropertyChanged("Major");
                 }
             }
-		}
+        }
 
         private UInt16 _minor;
-		public UInt16 Minor
-		{
-			get
-			{
-				return _minor;
-			}
+        public UInt16 Minor
+        {
+            get
+            {
+                return _minor;
+            }
             set
             {
                 if (_minor != value)
@@ -73,15 +73,15 @@ namespace BLEBeaconSample
                     NotifyPropertyChanged("Minor");
                 }
             }
-		}
+        }
 
         private int _rawSignalStrengthInDBm;
-		public int RawSignalStrengthInDBm
-		{
-			get
-			{
+        public int RawSignalStrengthInDBm
+        {
+            get
+            {
                 return _rawSignalStrengthInDBm;
-			}
+            }
             set
             {
                 if (_rawSignalStrengthInDBm != value)
@@ -92,15 +92,15 @@ namespace BLEBeaconSample
                     CalculateDistance(_rawSignalStrengthInDBm, MeasuredPower);
                 }
             }
-		}
+        }
 
         private int _measuredPower;
-		public int MeasuredPower
-		{
-			get
-			{
+        public int MeasuredPower
+        {
+            get
+            {
                 return _measuredPower;
-			}
+            }
             set
             {
                 if (_measuredPower != value)
@@ -111,11 +111,11 @@ namespace BLEBeaconSample
                     CalculateDistance(RawSignalStrengthInDBm, _measuredPower);
                 }
             }
-		}
+        }
 
         private DateTimeOffset _timestamp;
-		public DateTimeOffset Timestamp
-		{
+        public DateTimeOffset Timestamp
+        {
             get
             {
                 return _timestamp;
@@ -128,7 +128,7 @@ namespace BLEBeaconSample
                 TimeSpan timeElapsedSinceLastSeen = DateTime.Now - _timestamp;
                 SecondsElapsedSinceLastSeen = (int)timeElapsedSinceLastSeen.TotalSeconds;
             }
-		}
+        }
 
         private double _distance;
         public double Distance
@@ -167,12 +167,12 @@ namespace BLEBeaconSample
         }
 
         private int _secondsElapsedSinceLastSeen;
-		public int SecondsElapsedSinceLastSeen
-		{
-			get
-			{
+        public int SecondsElapsedSinceLastSeen
+        {
+            get
+            {
                 return _secondsElapsedSinceLastSeen;
-			}
+            }
             private set
             {
                 if (_secondsElapsedSinceLastSeen != value)
@@ -181,7 +181,7 @@ namespace BLEBeaconSample
                     NotifyPropertyChanged("SecondsElapsedSinceLastSeen");
                 }
             }
-		}
+        }
 
         public Beacon()
         {
