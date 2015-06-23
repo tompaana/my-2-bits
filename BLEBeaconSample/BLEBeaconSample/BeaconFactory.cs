@@ -17,11 +17,7 @@ namespace BLEBeaconSample
         private const char HexStringSeparator = '-';
         private const byte FirstBeaconDataSectionDataType = 0x01;
         private const byte SecondBeaconDataSectionDataType = 0xFF;
-        private const int SecondBeaconDataSectionLengthInBytes = 25;
-        private const UInt16 IBeaconManufacturerCompanyId = 0x004C;
-        private const UInt16 BeaconTypeAndDataLength = 0x0215;
-        private const string IBeaconManufacturerCompanyIdAsString = "4C00";
-        private const string DefaultBeaconTypeAndDataLengthAsString = "0215";
+        private const int SecondBeaconDataSectionMinimumLengthInBytes = 25;
 
         /// <summary>
         /// Constructs a Beacon instance and sets the properties based on the given data.
@@ -100,39 +96,38 @@ namespace BLEBeaconSample
         /// 
         /// Byte(s)     Name
         /// --------------------------
-        /// 0-1         Company ID
-        /// 2           Beacon Type
-        /// 3           Data length after (0x15 -> 21 bytes)
-        /// 4-19        Proximity UUID
-        /// 20-21       Major
-        /// 22-23       Minor
-        /// 24          Measured Power
+        /// 0-1         Manufacturer ID (16-bit unsigned integer, big endian)
+        /// 2-3         Beacon code (two 8-bit unsigned integers, but can be considered as one 16-bit unsigned integer in little endian)
+        /// 4-19        ID1 (UUID)
+        /// 20-21       ID2 (16-bit unsigned integer, big endian)
+        /// 22-23       ID3 (16-bit unsigned integer, big endian)
+        /// 24          Measured Power (signed 8-bit integer)
+        /// 25          Reserved for use by the manufacturer to implement special features (optional)
         /// 
-        /// The minimum length of the given byte array is 25, and if it is longer, everything
-        /// after the 25th bit is ignored.
+        /// For more details on the beacon specifications see https://github.com/AltBeacon/spec
+        /// 
+        /// The minimum length of the given byte array is 25. If it is longer than 26 bits,
+        /// everything after the 26th bit is ignored.
         /// </summary>
         /// <param name="data">The data to populate the Beacon instance properties with.</param>
         /// <returns>A newly created Beacon instance or null in case of a failure.</returns>
         public static Beacon BeaconFromByteArray([ReadOnlyArray] byte[] data)
         {
-            if (data == null || data.Length < SecondBeaconDataSectionLengthInBytes)
+            if (data == null || data.Length < SecondBeaconDataSectionMinimumLengthInBytes)
             {
                 // The given data is null or too short
                 return null;
             }
 
             Beacon beacon = new Beacon();
-
-            try
-            {
-                beacon.BeaconType = Convert.ToSByte(data[2]); // Byte 2
-            }
-            catch (OverflowException)
-            {
-            }
-
-            beacon.ProximityUuid = FormatUuid(BitConverter.ToString(data, 4, 16)); // Bytes 4-19
+            beacon.Code = BitConverter.ToUInt16(data, 2); // Bytes 2-3
+            beacon.Id1 = FormatUuid(BitConverter.ToString(data, 4, 16)); // Bytes 4-19
             beacon.MeasuredPower = Convert.ToSByte(BitConverter.ToString(data, 24, 1), 16); // Byte 24
+
+            if (data.Length >= SecondBeaconDataSectionMinimumLengthInBytes + 1)
+            {
+                beacon.MfgReserved = data[25]; // Byte 25
+            }
 
             // Data is expected to be big endian. Thus, if we are running on a little endian,
             // we need to switch the bytes
@@ -141,63 +136,94 @@ namespace BLEBeaconSample
                 data = ChangeInt16ArrayEndianess(data);
             }
 
-            beacon.CompanyId = BitConverter.ToInt16(data, 0); // Bytes 0-1        
-            beacon.Major = BitConverter.ToUInt16(data, 20); // Bytes 20-21
-            beacon.Minor = BitConverter.ToUInt16(data, 22); // Bytes 22-23
+            beacon.ManufacturerId = BitConverter.ToUInt16(data, 0); // Bytes 0-1
+            beacon.Id2 = BitConverter.ToUInt16(data, 20); // Bytes 20-21
+            beacon.Id3 = BitConverter.ToUInt16(data, 22); // Bytes 22-23
 
             return beacon;
         }
 
         /// <summary>
-        /// Creates a BluetoothLEManufacturerData instance based on iBeacon specifications.
-        /// The returned instance can be used as a filter for a BLE advertisement watcher.
-        /// 
-        /// The returned instance is always the same and does not depend on the values of this
-        /// Beacon instance.
+        /// Creates a BluetoothLEManufacturerData instance based on the given manufacturer ID and
+        /// beacon code. The returned instance can be used as a filter for a BLE advertisement
+        /// watcher.
         /// </summary>
-        /// <returns>BluetoothLEManufacturerData instance based on beacon specifications.</returns>
-        public static BluetoothLEManufacturerData DefaultBeaconManufacturerData()
+        /// <param name="manufacturerId">The manufacturer ID.</param>
+        /// <param name="beaconCode">The beacon code.</param>
+        /// <returns>BluetoothLEManufacturerData instance based on given arguments.</returns>
+        public static BluetoothLEManufacturerData BeaconManufacturerData(UInt16 manufacturerId, UInt16 beaconCode)
         {
             BluetoothLEManufacturerData manufacturerData = new BluetoothLEManufacturerData();
-            manufacturerData.CompanyId = IBeaconManufacturerCompanyId;
-
+            manufacturerData.CompanyId = manufacturerId;
             DataWriter writer = new DataWriter();
-            writer.WriteUInt16(BeaconTypeAndDataLength);
-
+            writer.WriteUInt16(beaconCode);
             manufacturerData.Data = writer.DetachBuffer();
-
             return manufacturerData;
         }
 
         /// <summary>
         /// Creates the second part of the beacon advertizing packet.
-        /// Uses the proximity UUID, major, minor and measured power to create the data section.
+        /// Uses the beacon IDs 1, 2, 3 and measured power to create the data section.
         /// </summary>
         /// <param name="beacon">A beacon instance.</param>
+        /// <param name="includeMfgReservedByte">Defines whether we should add the additional, manufacturer reserved byte or not.</param>
         /// <returns>A newly created data section.</returns>
-        public static BluetoothLEAdvertisementDataSection BeaconToSecondDataSection(Beacon beacon)
+        public static BluetoothLEAdvertisementDataSection BeaconToSecondDataSection(
+            Beacon beacon, bool includeMfgReservedByte = false)
         {
-            string[] temp = beacon.ProximityUuid.Split(HexStringSeparator);
-            string proximityUuid = string.Join("", temp);
+            string[] temp = beacon.Id1.Split(HexStringSeparator);
+            string beaconId1 = string.Join("", temp);
 
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(IBeaconManufacturerCompanyIdAsString);
-            stringBuilder.Append(DefaultBeaconTypeAndDataLengthAsString);
-            stringBuilder.Append(proximityUuid.ToUpper());
+            stringBuilder.Append(ManufacturerIdToString(beacon.ManufacturerId));
+            stringBuilder.Append(BeaconCodeToString(beacon.Code));
+            stringBuilder.Append(beaconId1.ToUpper());
 
             byte[] beginning = HexStringToByteArray(stringBuilder.ToString());
 
-            byte[] data = new byte[SecondBeaconDataSectionLengthInBytes];
+            byte[] data = includeMfgReservedByte
+                ? new byte[SecondBeaconDataSectionMinimumLengthInBytes + 1]
+                : new byte[SecondBeaconDataSectionMinimumLengthInBytes];
+
             beginning.CopyTo(data, 0);
-            ChangeInt16ArrayEndianess(BitConverter.GetBytes(beacon.Major)).CopyTo(data, 20);
-            ChangeInt16ArrayEndianess(BitConverter.GetBytes(beacon.Minor)).CopyTo(data, 22);
+            ChangeInt16ArrayEndianess(BitConverter.GetBytes(beacon.Id2)).CopyTo(data, 20);
+            ChangeInt16ArrayEndianess(BitConverter.GetBytes(beacon.Id3)).CopyTo(data, 22);
             data[24] = (byte)Convert.ToSByte(beacon.MeasuredPower);
+
+            if (includeMfgReservedByte)
+            {
+                data[25] = beacon.MfgReserved;
+            }
 
             BluetoothLEAdvertisementDataSection dataSection = new BluetoothLEAdvertisementDataSection();
             dataSection.DataType = SecondBeaconDataSectionDataType;
             dataSection.Data = data.AsBuffer();
 
             return dataSection;
+        }
+
+        /// <summary>
+        /// Converts the given manufacturer ID to string.
+        /// </summary>
+        /// <param name="manufacturerId">The manufacturer ID as Uint16.</param>
+        /// <returns>The manufacturer ID as string.</returns>        
+        public static string ManufacturerIdToString(UInt16 manufacturerId)
+        {
+            byte[] manufacturerIdAsByteArray = BitConverter.GetBytes(manufacturerId);
+            string manufacturerIdAsString = BitConverter.ToString(manufacturerIdAsByteArray);
+            return manufacturerIdAsString.Replace(HexStringSeparator.ToString(), string.Empty);
+        }
+
+        /// <summary>
+        /// Converts the given beacon code to string.
+        /// </summary>
+        /// <param name="beaconCode">The beacon code as Uint16.</param>
+        /// <returns>The beacon code as string.</returns>        
+        public static string BeaconCodeToString(UInt16 beaconCode)
+        {
+            byte[] beaconCodeAsByteArray = ChangeInt16ArrayEndianess(BitConverter.GetBytes(beaconCode));
+            string beaconCodeAsString = BitConverter.ToString(beaconCodeAsByteArray);
+            return beaconCodeAsString.Replace(HexStringSeparator.ToString(), string.Empty);
         }
 
         /// <summary>

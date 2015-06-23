@@ -52,12 +52,12 @@
                         Margin="0,6,0,0"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         FontWeight="ExtraLight"
-                        Text="Proximity UUID" />
+                        Text="Beacon ID 1" />
                     <TextBox
-                        x:Name="proximityUuidTextBox"
+                        x:Name="beaconId1TextBox"
                         Margin="0,6,0,0"
                         MaxLength="36"
-                        Text="{Binding Path=ProximityUuid, ElementName=thisPage}"
+                        Text="{Binding Path=BeaconId1, ElementName=thisPage}"
                         IsEnabled="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource InvertValueConverter}}"
                         TextChanged="OnAdvertisingTextBoxTextChanged" />
                     <Grid>
@@ -70,12 +70,12 @@
 						        Margin="0,12,0,0"
 								Style="{ThemeResource BodyTextBlockStyle}"
 								FontWeight="ExtraLight"
-								Text="Major" />
+								Text="Beacon ID 2" />
                             <TextBox
-								x:Name="majorTextBox"
+								x:Name="beaconId2TextBox"
                                 Margin="0,6,6,0"
                                 InputScope="Number"
-                                Text="{Binding Path=Major, ElementName=thisPage, Mode=TwoWay}"
+                                Text="{Binding Path=BeaconId2, ElementName=thisPage, Mode=TwoWay}"
                                 IsEnabled="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource InvertValueConverter}}"
                                 TextChanged="OnAdvertisingTextBoxTextChanged" />
                         </StackPanel>
@@ -84,12 +84,12 @@
 								Margin="6,12,0,0"
 								Style="{ThemeResource BodyTextBlockStyle}"
 								FontWeight="ExtraLight"
-								Text="Minor" />
+								Text="Beacon ID 3" />
                             <TextBox
-								x:Name="minorTextBox"
+								x:Name="beaconId3TextBox"
                                 Margin="6,6,0,0"
                                 InputScope="Number"
-                                Text="{Binding Path=Minor, ElementName=thisPage, Mode=TwoWay}"
+                                Text="{Binding Path=BeaconId3, ElementName=thisPage, Mode=TwoWay}"
                                 IsEnabled="{Binding Path=IsPublisherStarted, ElementName=thisPage, Converter={StaticResource InvertValueConverter}}"
                                 TextChanged="OnAdvertisingTextBoxTextChanged" />
                         </StackPanel>

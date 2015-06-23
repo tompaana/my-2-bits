@@ -12,65 +12,65 @@ namespace BLEBeaconSample
         private Timer _lastSeenTimer;
         private object _lockerObject;
 
-        public int CompanyId
+        public UInt16 ManufacturerId
         {
             get;
             set;
         }
 
-        public int BeaconType
+        public UInt16 Code
         {
             get;
             set;
         }
 
-        private string _proximityUuid;
-        public string ProximityUuid
+        private string _id1;
+        public string Id1
         {
             get
             {
-                return _proximityUuid;
+                return _id1;
             }
             set
             {
-                if (string.IsNullOrEmpty(_proximityUuid) || !_proximityUuid.Equals(value))
+                if (string.IsNullOrEmpty(_id1) || !_id1.Equals(value))
                 {
-                    _proximityUuid = value;
-                    NotifyPropertyChanged("ProximityUuid");
+                    _id1 = value;
+                    NotifyPropertyChanged("Id1");
                 }
             }
         }
 
-        private UInt16 _major;
-        public UInt16 Major
+        private UInt16 _id2;
+        public UInt16 Id2
         {
             get
             {
-                return _major;
+                return _id2;
             }
             set
             {
-                if (_major != value)
+                if (_id2 != value)
                 {
-                    _major = value;
-                    NotifyPropertyChanged("Major");
+                    _id2 = value;
+                    NotifyPropertyChanged("Id2");
                 }
             }
         }
 
-        private UInt16 _minor;
-        public UInt16 Minor
+        private UInt16 _id3;
+        public UInt16 Id3
         {
             get
             {
-                return _minor;
+                return _id3;
             }
             set
             {
-                if (_minor != value)
+                if (_id3 != value)
                 {
-                    _minor = value;
-                    NotifyPropertyChanged("Minor");
+                    _id3 = value;
+                    NotifyPropertyChanged("Id3");
                 }
             }
         }
@@ -111,6 +111,15 @@ namespace BLEBeaconSample
                     CalculateDistance(RawSignalStrengthInDBm, _measuredPower);
                 }
             }
+        }
+
+        /// <summary>
+        /// Reserved for use by the manufacturer to implement special features.
+        /// </summary>
+        public byte MfgReserved
+        {
+            get;
+            set;
         }
 
         private DateTimeOffset _timestamp;
@@ -222,14 +231,14 @@ namespace BLEBeaconSample
         /// <returns>True, if the beacons match.</returns>
         public bool Matches(Beacon beacon)
         {
-            return beacon.ProximityUuid.Equals(ProximityUuid)
-                && beacon.Major == Major
-                && beacon.Minor == Minor;
+            return beacon.Id1.Equals(Id1)
+                && beacon.Id2 == Id2
+                && beacon.Id3 == Id3;
         }
 
         public override string ToString()
         {
-            return BeaconFactory.FormatUuid(ProximityUuid) + ":" + Major + ":" + Minor;
+            return BeaconFactory.FormatUuid(Id1) + ":" + Id2 + ":" + Id3;
         }
 
         private void CalculateDistance(int rawSignalStrengthInDBm, int measuredPower)

@@ -20,6 +20,7 @@ reusable (you're welcome) classes to manage beacons:
 
 ### More on BLE beacon app development ###
 
+* My [blog post](http://tomipaananen.azurewebsites.net/?p=111) related to this topic
+* [AltBeacon specifications](https://github.com/AltBeacon/spec)
 * [Building Compelling Bluetooth Apps in Windows 10](https://channel9.msdn.com/Events/Build/2015/3-739) session from //build/ 2015
 * The official Microsoft [beacon sample](https://github.com/Microsoft/Windows-universal-samples/tree/master/bluetoothadvertisement)
-* My [blog post](http://tomipaananen.azurewebsites.net/?p=111) related to this topic

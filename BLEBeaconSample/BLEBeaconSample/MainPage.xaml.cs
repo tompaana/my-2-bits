@@ -10,10 +10,18 @@ namespace BLEBeaconSample
 {
     public sealed partial class MainPage : Page
     {
-        // Constants
-        private const string DefaultBeaconProximityUuid = "abcdef12-3456-7890-abcd-ef1234567890";
-        private const string DefaultBeaconMajor = "1234";
-        private const string DefaultBeaconMinor = "5678";
+        #region Constants
+
+        // Set the values below (manufacturer ID and beacon code) to filter the beacons
+        // based on the manufacturer.
+        private const UInt16 ManufacturerId = 0x0012;
+        private const UInt16 BeaconCode = 0xBEAC;
+
+        private const string DefaultBeaconId1 = "abcdef12-3456-7890-abcd-ef1234567890";
+        private const string DefaultBeaconId2 = "1234";
+        private const string DefaultBeaconId3 = "5678";
+
+        #endregion
 
         #region Properties for XAML UI
 
@@ -47,50 +55,50 @@ namespace BLEBeaconSample
             DependencyProperty.Register("IsPublisherStarted", typeof(bool), typeof(MainPage),
                 new PropertyMetadata(false));
 
-        public string ProximityUuid
+        public string BeaconId1
         {
             get
             {
-                return (string)GetValue(ProximityUuidProperty);
+                return (string)GetValue(BeaconId1Property);
             }
             private set
             {
-                SetValue(ProximityUuidProperty, value);
+                SetValue(BeaconId1Property, value);
             }
         }
-        public static readonly DependencyProperty ProximityUuidProperty =
-            DependencyProperty.Register("ProximityUuid", typeof(string), typeof(MainPage),
-                new PropertyMetadata(DefaultBeaconProximityUuid));
+        public static readonly DependencyProperty BeaconId1Property =
+            DependencyProperty.Register("BeaconId1", typeof(string), typeof(MainPage),
+                new PropertyMetadata(DefaultBeaconId1));
 
-        public string Major
+        public string BeaconId2
         {
             get
             {
-                return (string)GetValue(MajorProperty);
+                return (string)GetValue(BeaconId2Property);
             }
             private set
             {
-                SetValue(MajorProperty, value);
+                SetValue(BeaconId2Property, value);
             }
         }
-        public static readonly DependencyProperty MajorProperty =
-            DependencyProperty.Register("Major", typeof(string), typeof(MainPage),
-                new PropertyMetadata(DefaultBeaconMajor));
+        public static readonly DependencyProperty BeaconId2Property =
+            DependencyProperty.Register("BeaconId2", typeof(string), typeof(MainPage),
+                new PropertyMetadata(DefaultBeaconId2));
 
-        public string Minor
+        public string BeaconId3
         {
             get
             {
-                return (string)GetValue(MinorProperty);
+                return (string)GetValue(BeaconId3Property);
             }
             private set
             {
-                SetValue(MinorProperty, value);
+                SetValue(BeaconId3Property, value);
             }
         }
-        public static readonly DependencyProperty MinorProperty =
-            DependencyProperty.Register("Minor", typeof(string), typeof(MainPage),
-                new PropertyMetadata(DefaultBeaconMinor));
+        public static readonly DependencyProperty BeaconId3Property =
+            DependencyProperty.Register("BeaconId3", typeof(string), typeof(MainPage),
+                new PropertyMetadata(DefaultBeaconId3));
 
         #endregion
 
@@ -136,7 +144,8 @@ namespace BLEBeaconSample
         /// Constructs the collection for beacons that we detect and the BLE beacon advertisement
         /// watcher.
         /// 
-        /// Hooks the events of the watcher and sets the filter to match iBeacon specification.
+        /// Hooks the events of the watcher and sets the watcher filter based on
+        /// the manufacturer ID and beacon code.
         /// </summary>
         private void InitializeScanner()
         {
@@ -147,7 +156,8 @@ namespace BLEBeaconSample
             _bluetoothLEAdvertisemenetWatcher.Stopped += OnWatcherStoppedAsync;
             _bluetoothLEAdvertisemenetWatcher.Received += OnAdvertisemenetReceivedAsync;
 
-            BluetoothLEManufacturerData manufacturerData = BeaconFactory.DefaultBeaconManufacturerData();
+            BluetoothLEManufacturerData manufacturerData = BeaconFactory.BeaconManufacturerData(ManufacturerId, BeaconCode);
+
             _bluetoothLEAdvertisemenetWatcher.AdvertisementFilter.Advertisement.ManufacturerData.Add(manufacturerData);
         }
 
@@ -258,12 +268,14 @@ namespace BLEBeaconSample
             if (_bluetoothLEAdvertisementPublisher.Status != BluetoothLEAdvertisementPublisherStatus.Started)
             {
                 Beacon beacon = new Beacon();
-                beacon.ProximityUuid = ProximityUuid;
+                beacon.ManufacturerId = ManufacturerId;
+                beacon.Code = BeaconCode;
+                beacon.Id1 = BeaconId1;
 
                 try
                 {
-                    beacon.Major = UInt16.Parse(Major);
-                    beacon.Minor = UInt16.Parse(Minor);
+                    beacon.Id2 = UInt16.Parse(BeaconId2);
+                    beacon.Id3 = UInt16.Parse(BeaconId3);
                 }
                 catch (Exception)
                 {
@@ -300,27 +312,27 @@ namespace BLEBeaconSample
                 string textBoxName = textBox.Name.ToLower();
                 string text = textBox.Text;
 
-                if (textBoxName.StartsWith("proximity"))
+                if (textBoxName.StartsWith("beaconid1"))
                 {
                     int oldTextLength = text.Length;
                     int oldCaretPosition = textBox.SelectionStart;
 
-                    ProximityUuid = BeaconFactory.FormatUuid(text);
+                    BeaconId1 = BeaconFactory.FormatUuid(text);
 
-                    int newCaretPosition = oldCaretPosition + (ProximityUuid.Length - oldTextLength);
+                    int newCaretPosition = oldCaretPosition + (BeaconId1.Length - oldTextLength);
 
-                    if (newCaretPosition > 0 && newCaretPosition <= ProximityUuid.Length)
+                    if (newCaretPosition > 0 && newCaretPosition <= BeaconId1.Length)
                     {
                         textBox.SelectionStart = newCaretPosition;
                     }
                 }
-                else if (textBoxName.StartsWith("major"))
+                else if (textBoxName.StartsWith("beaconid2"))
                 {
-                    Major = text;
+                    BeaconId2 = text;
                 }
-                else if (textBoxName.StartsWith("minor"))
+                else if (textBoxName.StartsWith("beaconid3"))
                 {
-                    Minor = text;
+                    BeaconId3 = text;
                 }
             }
         }
