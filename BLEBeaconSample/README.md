@@ -22,5 +22,6 @@ reusable (you're welcome) classes to manage beacons:
 
 * My [blog post](http://tomipaananen.azurewebsites.net/?p=111) related to this topic
 * [AltBeacon specifications](https://github.com/AltBeacon/spec)
+* Juhana Koski's [blog article](http://juhana.cloudapp.net/?p=89) and [code sample](https://github.com/juhanak/samples/tree/master/BeaconListener) demonstrating how to implement background functionality for detecting beacons
 * [Building Compelling Bluetooth Apps in Windows 10](https://channel9.msdn.com/Events/Build/2015/3-739) session from //build/ 2015
 * The official Microsoft [beacon sample](https://github.com/Microsoft/Windows-universal-samples/tree/master/bluetoothadvertisement)
