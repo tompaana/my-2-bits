@@ -196,6 +196,7 @@ namespace BLEBeaconSample
                             if (existingBeacon.Update(beacon))
                             {
                                 existingBeaconUpdated = true;
+                                beacon.Dispose();
                             }
                         }
 

@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace BLEBeaconSample
 {
-    public class Beacon : INotifyPropertyChanged
+    public class Beacon : INotifyPropertyChanged, IDisposable
     {
         private const int BeaconNotInRangeTimeoutInSeconds = 2;
         private const int LastSeenTimerTimeoutInMilliseconds = 1000;
@@ -197,6 +197,15 @@ namespace BLEBeaconSample
             _lockerObject = new Object();
             _lastSeenTimer = new Timer(LastSeenTimerCallbackAsync, null,
                 LastSeenTimerTimeoutInMilliseconds, LastSeenTimerTimeoutInMilliseconds);
+        }
+
+        public void Dispose()
+        {
+            if (_lastSeenTimer != null)
+            {
+                _lastSeenTimer.Dispose();
+                _lastSeenTimer = null;
+            }
         }
 
         /// <summary>
