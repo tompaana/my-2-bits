@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="UniversalSampleSharedCode.UserInformationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UniversalSampleSharedCode"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Margin="12">
+            <TextBlock
+                Style="{ThemeResource TitleTextBlockStyle}"
+                Text="User information" />
+            <Grid Margin="0,12,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Display name" />
+                <TextBlock
+                    x:Name="displayNameTextBlock"
+                    Grid.Row="0"
+                    Grid.Column="2" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="First name" />
+                <TextBlock
+                    x:Name="firstNameTextBlock"
+                    Grid.Row="1"
+                    Grid.Column="2" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="Last name" />
+                <TextBlock
+                    x:Name="lastNameTextBlock"
+                    Grid.Row="2"
+                    Grid.Column="2" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
