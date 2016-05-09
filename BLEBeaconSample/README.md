@@ -5,7 +5,7 @@ BLE Beacon Sample
 (BLE) beacons and how to turn a Windows device into a beacon. No background
 functionality included.
 
-**Supported platforms:** Windows 10 (Technical Preview)
+**Supported platforms:** Windows 10
 
 ![Screenshot 1](https://raw.githubusercontent.com/tompaana/my-2-bits/master/BLEBeaconSample/Doc/Screenshot.png)
 
