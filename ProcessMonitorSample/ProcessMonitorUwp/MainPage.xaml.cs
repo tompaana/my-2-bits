@@ -59,20 +59,21 @@ namespace ProcessMonitorUwp
             base.OnNavigatedFrom(e);
         }
 
-        private async void OnProcessStateChangedAsync(object sender, ProcessStateChangeEventArgs e)
+        private async void OnProcessStateChangedAsync(object sender, ProcessStateChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("OnProcessStateChanged: " + e);
+            System.Diagnostics.Debug.WriteLine("OnProcessStateChangedAsync: " + e);
 
             if (_appServiceBridgeManager.BackgroundProcessLaunched)
             {
                 string responseValue = await _appServiceBridgeManager.SendRequestToBackgroundProcessAsync(
-                    Keys.KeyProcessDetailsByWindowHandleRequest, e.WindowHandle.ToString());
+                    Keys.KeyProcessDetailsByWindowHandleRequest, e.ProcessProxy.MainWindowHandle.ToString());
 
                 ProcessProxy processProxy = ProcessProxy.FromJson(responseValue);
 
                 if (processProxy != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("OnProcessStateChanged: " + processProxy);
+                    System.Diagnostics.Debug.WriteLine("OnProcessStateChangedAsync: " + processProxy);
+                    logControl.AddLogMessage("Process state changed: " + e.ToString() + " " + processProxy.ToString());
                 }
             }
         }

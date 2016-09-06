@@ -24,15 +24,15 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock
-					Style="{StaticResource BodyTextBlockStyle}"
-					Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-					Text="Distance:" />
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                    Text="Distance:" />
                 <TextBlock
                     Grid.Column="1"
                     Margin="6,0,0,0"
-					Style="{StaticResource BodyTextBlockStyle}"
-					Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}">
-					<Run Text="{Binding Distance, FallbackValue='0.0'}" />
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}">
+                    <Run Text="{Binding Distance, FallbackValue='0.0'}" />
                     <Run Text="m (SS:" />
                     <Run Text="{Binding RawSignalStrengthInDBm, FallbackValue='0'}" />
                     <Run Text="; MP:" />
@@ -55,16 +55,16 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
-						Grid.Column="0"
-						Style="{StaticResource BodyTextBlockStyle}"
-						Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-						Text="ID 2:" />
+                        Grid.Column="0"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="ID 2:" />
                     <TextBlock
-						Grid.Column="1"
+                        Grid.Column="1"
                         Margin="6,0,0,0"
-						Style="{StaticResource BodyTextBlockStyle}"
-						Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-						Text="{Binding Id2, FallbackValue=1234}" />
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="{Binding Id2, FallbackValue=1234}" />
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -72,16 +72,16 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
-						Grid.Column="0"
-						Style="{StaticResource BodyTextBlockStyle}"
-						Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-						Text="ID 3:" />
+                        Grid.Column="0"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="ID 3:" />
                     <TextBlock
-						Grid.Column="1"
+                        Grid.Column="1"
                         Margin="6,0,0,0"
-						Style="{StaticResource BodyTextBlockStyle}"
-						Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
-						Text="{Binding Id3, FallbackValue=5678}" />
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                        Text="{Binding Id3, FallbackValue=5678}" />
                 </Grid>
             </Grid>
             <TextBlock

@@ -9,7 +9,7 @@ namespace ProcessMonitoring
     /// </summary>
     public class EventBasedProcessMonitor
     {
-        public event EventHandler<ProcessStateChangeEventArgs> ProcessStateChanged;
+        public event EventHandler<ProcessStateChangedEventArgs> ProcessStateChanged;
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr SetWinEventHook(uint eventMin, uint eventMax, IntPtr hmodWinEventProc, WinEventProc lpfnWinEventProc, int idProcess, int idThread, uint dwflags);
@@ -46,10 +46,17 @@ namespace ProcessMonitoring
             IntPtr hWinEventHook, uint iEvent, IntPtr hWnd, int idObject, int idChild,
             int dwEventThread, int dwmsEventTime)
         {
-            ProcessStateChangeEventArgs processStateChangeEventArgs = new ProcessStateChangeEventArgs();
-            processStateChangeEventArgs.WindowHandle = hWnd.ToInt32();
-            processStateChangeEventArgs.EventType = (int)iEvent;
-            _eventBasedProcessMonitor?.ProcessStateChanged?.Invoke(_eventBasedProcessMonitor, processStateChangeEventArgs);
+            ProcessStateChangedEventArgs processStatedChangeEventArgs = new ProcessStateChangedEventArgs();
+            processStatedChangeEventArgs.ProcessProxy.MainWindowHandle = hWnd.ToInt32();
+            processStatedChangeEventArgs.EventType = (int)iEvent;
+
+            if (processStatedChangeEventArgs.EventType == (int)EVENT_SYSTEM_FOREGROUND)
+            {
+                processStatedChangeEventArgs.StateChangeType =
+                    ProcessStateChangedEventArgs.StateChangeTypes.BroughtForeground;
+            }
+
+            _eventBasedProcessMonitor?.ProcessStateChanged?.Invoke(_eventBasedProcessMonitor, processStatedChangeEventArgs);
         }
     }
 }

@@ -26,10 +26,10 @@
                     Visibility="{Binding Path=IsWatcherStarted, ElementName=thisPage, Converter={StaticResource BoolToVisibilityConverter}}" />
                 <ListBox
                     Margin="0,6,0,0"
-					Background="Transparent"
-					Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                    Background="Transparent"
+                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                     BorderBrush="Transparent"
-					ItemsSource="{Binding Path=BeaconCollection, ElementName=thisPage}">
+                    ItemsSource="{Binding Path=BeaconCollection, ElementName=thisPage}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <local:BeaconUserControl />
@@ -67,12 +67,12 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
                             <TextBlock
-						        Margin="0,12,0,0"
-								Style="{ThemeResource BodyTextBlockStyle}"
-								FontWeight="ExtraLight"
-								Text="Beacon ID 2" />
+                                Margin="0,12,0,0"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                FontWeight="ExtraLight"
+                                Text="Beacon ID 2" />
                             <TextBox
-								x:Name="beaconId2TextBox"
+                                x:Name="beaconId2TextBox"
                                 Margin="0,6,6,0"
                                 InputScope="Number"
                                 Text="{Binding Path=BeaconId2, ElementName=thisPage, Mode=TwoWay}"
@@ -81,12 +81,12 @@
                         </StackPanel>
                         <StackPanel Grid.Column="1">
                             <TextBlock
-								Margin="6,12,0,0"
-								Style="{ThemeResource BodyTextBlockStyle}"
-								FontWeight="ExtraLight"
-								Text="Beacon ID 3" />
+                                Margin="6,12,0,0"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                FontWeight="ExtraLight"
+                                Text="Beacon ID 3" />
                             <TextBox
-								x:Name="beaconId3TextBox"
+                                x:Name="beaconId3TextBox"
                                 Margin="6,6,0,0"
                                 InputScope="Number"
                                 Text="{Binding Path=BeaconId3, ElementName=thisPage, Mode=TwoWay}"
@@ -127,15 +127,15 @@
             <HubSection ContentTemplate="{StaticResource scannerDataTemplate}">
                 <HubSection.Header>
                     <TextBlock
-						Style="{StaticResource SubheaderTextBlockStyle}"
-						Text="scanner" />
+                        Style="{StaticResource SubheaderTextBlockStyle}"
+                        Text="scanner" />
                 </HubSection.Header>
             </HubSection>
             <HubSection ContentTemplate="{StaticResource advertiserDataTemplate}">
                 <HubSection.Header>
                     <TextBlock
-						Style="{StaticResource SubheaderTextBlockStyle}"
-						Text="advertiser" />
+                        Style="{StaticResource SubheaderTextBlockStyle}"
+                        Text="advertiser" />
                 </HubSection.Header>
             </HubSection>
         </Hub>

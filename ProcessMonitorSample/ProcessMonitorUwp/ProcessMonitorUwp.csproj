@@ -101,13 +101,20 @@
     <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\ProcessProxy.cs">
       <Link>ProcessMonitoringLinks\ProcessProxy.cs</Link>
     </Compile>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\ProcessStateChangeEventArgs.cs">
-      <Link>ProcessMonitoringLinks\ProcessStateChangeEventArgs.cs</Link>
+    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\ProcessStateChangedEventArgs.cs">
+      <Link>ProcessMonitoringLinks\ProcessStateChangedEventArgs.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppServiceBridgeManager.cs" />
+    <Compile Include="Logging\LogControl.xaml.cs">
+      <DependentUpon>LogControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\LogItem.cs" />
+    <Compile Include="Logging\LogItemControl.xaml.cs">
+      <DependentUpon>LogItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -134,6 +141,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Logging\LogControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logging\LogItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

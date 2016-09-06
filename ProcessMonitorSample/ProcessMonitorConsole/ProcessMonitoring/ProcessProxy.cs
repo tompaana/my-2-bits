@@ -110,7 +110,10 @@ namespace ProcessMonitoring
 
         public override string ToString()
         {
-            return "[" + Id + " " + ProcessName + " " + MainWindowHandle + " " + MainWindowTitle + "]";
+            return "[Process ID: " + Id
+                + ", Process name: " + ProcessName
+                + (MainWindowHandle == 0 ? "" : (", Main window handle: " + MainWindowHandle))
+                + (string.IsNullOrEmpty(MainWindowTitle) ? "" : (", Main window title: " + MainWindowTitle + "]"));
         }
     }
 }
