@@ -12,7 +12,7 @@ namespace ProcessMonitorConsole
     {
         static void Main(string[] args)
         {
-            Logger.Log("--- Process monitor console ---");
+            Logger.Log("--- Process Monitor console ---");
 
             Thread appServiceThread = new Thread(new ThreadStart(AppServiceConnectionManager.ThreadProc));
             appServiceThread.Start();

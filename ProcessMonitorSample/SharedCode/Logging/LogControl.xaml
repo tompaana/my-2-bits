@@ -14,7 +14,7 @@
             ItemsSource="{Binding Path=LogItems, ElementName=thisControl}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Background="Green">
+                    <Grid>
                         <TextBlock
                             x:Name="messageTextBlock"
                             Margin="6"
