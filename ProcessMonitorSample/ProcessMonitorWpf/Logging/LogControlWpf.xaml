@@ -13,7 +13,9 @@
             ItemsSource="{Binding Path=LogItems, ElementName=thisControl}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:LogItemControl />
+                    <Grid>
+                        <TextBlock Text="{Binding MessageWithTimestamp}" />
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

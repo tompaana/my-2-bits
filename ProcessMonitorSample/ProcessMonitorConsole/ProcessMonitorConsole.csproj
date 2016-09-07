@@ -72,6 +72,7 @@
     <Compile Include="ProcessMonitoring\ForegroundProcessChangedEventArgs.cs" />
     <Compile Include="ProcessMonitoring\ProcessListChangedEventArgs.cs" />
     <Compile Include="ProcessMonitoring\PollingProcessMonitor.cs" />
+    <Compile Include="ProcessMonitoring\ProcessManager.cs" />
     <Compile Include="ProcessMonitoring\ProcessProxy.cs" />
     <Compile Include="ProcessMonitoring\ProcessStateChangedEventArgs.cs" />
     <Compile Include="ProcessMonitoring\ProcessUtils.cs" />
