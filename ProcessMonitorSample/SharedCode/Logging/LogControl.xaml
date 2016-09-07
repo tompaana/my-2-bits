@@ -1,9 +1,8 @@
 ﻿<UserControl
     x:Name="thisControl"
-    x:Class="ProcessMonitorUwp.Logging.LogControl"
+    x:Class="ProcessMonitor.Logging.LogControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ProcessMonitorUwp.Logging"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -15,7 +14,15 @@
             ItemsSource="{Binding Path=LogItems, ElementName=thisControl}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:LogItemControl />
+                    <Grid Background="Green">
+                        <TextBlock
+                            x:Name="messageTextBlock"
+                            Margin="6"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            TextWrapping="Wrap"
+                            Text="{Binding MessageWithTimestamp, FallbackValue='No content'}" />
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

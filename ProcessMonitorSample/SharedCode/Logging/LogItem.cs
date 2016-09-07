@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace ProcessMonitorUwp.Logging
+namespace ProcessMonitor.Logging
 {
     public class LogItem : INotifyPropertyChanged
     {

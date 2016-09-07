@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using System.Windows.Controls;
 #endif
 
-namespace ProcessMonitorUwp.Logging
+namespace ProcessMonitor.Logging
 {
     public sealed partial class LogControl : UserControl
     {
