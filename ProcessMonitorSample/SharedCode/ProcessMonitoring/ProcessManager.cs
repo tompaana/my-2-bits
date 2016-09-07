@@ -1,7 +1,7 @@
 ﻿/*
  * SOURCE NOTICE
  * 
- * The code in this file was adopted from stack overflow answer by Magnus Johanson
+ * The code in this file was adopted from stack overflow answer by Magnus Johansson
  * (http://stackoverflow.com/users/3584/magnus). The original stack overflow discussion -
  * as of writing this - can found at http://stackoverflow.com/questions/71257/suspend-process-in-c-sharp
  */
