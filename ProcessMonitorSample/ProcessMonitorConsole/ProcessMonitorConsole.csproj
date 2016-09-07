@@ -60,6 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedCode\CommunicationProtocol\Keys.cs">
+      <Link>CommunicationProtocol\Keys.cs</Link>
+    </Compile>
     <Compile Include="..\SharedCode\ProcessMonitoring\ForegroundProcessChangedEventArgs.cs">
       <Link>ProcessMonitoring\ForegroundProcessChangedEventArgs.cs</Link>
     </Compile>
@@ -80,7 +83,6 @@
     </Compile>
     <Compile Include="AppServiceConnectionManager.cs" />
     <Compile Include="AppServiceConnectionRequestHandler.cs" />
-    <Compile Include="CommunicationProtocol\Keys.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ProcessMonitorEventHandler.cs" />
     <Compile Include="Program.cs" />

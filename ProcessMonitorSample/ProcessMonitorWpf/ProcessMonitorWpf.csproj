@@ -100,6 +100,9 @@
     <Compile Include="..\SharedCode\ProcessMonitoring\ProcessStateChangedEventArgs.cs">
       <Link>ProcessMonitoring\ProcessStateChangedEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\SharedCode\ProcessMonitoring\ProcessUtils.cs">
+      <Link>ProcessMonitoring\ProcessUtils.cs</Link>
+    </Compile>
     <Compile Include="..\SharedCode\ProcessMonitoring\Win32Process.cs">
       <Link>ProcessMonitoring\Win32Process.cs</Link>
       <SubType>Component</SubType>
@@ -114,6 +117,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProcessManagerTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

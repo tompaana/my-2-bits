@@ -24,13 +24,13 @@ namespace ProcessMonitorUwp
     public sealed partial class MainPage : Page
     {
         private AppServiceBridgeManager _appServiceBridgeManager;
-        private EventBasedProcessMonitor _processMonitor;
+        private EventBasedProcessMonitorUniversal _processMonitor;
 
         public MainPage()
         {
             this.InitializeComponent();
             _appServiceBridgeManager = new AppServiceBridgeManager();
-            _processMonitor = new EventBasedProcessMonitor();
+            _processMonitor = new EventBasedProcessMonitorUniversal();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

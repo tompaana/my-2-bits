@@ -1,18 +1,7 @@
 ﻿using ProcessMonitoring;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProcessMonitorWpf
 {
@@ -21,11 +10,16 @@ namespace ProcessMonitorWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const string NameOfProcessToTestWith = "notepad";
         private EventBasedProcessMonitorWin32 _processMonitor;
+        private ProcessManagerTester _processManagerTester;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            _processManagerTester = new ProcessManagerTester(NameOfProcessToTestWith, logControl);
+
             _processMonitor = new EventBasedProcessMonitorWin32();
             _processMonitor.ProcessStateChanged += OnProcessStateChanged;
             _processMonitor.Start();
@@ -33,8 +27,13 @@ namespace ProcessMonitorWpf
 
         private void OnProcessStateChanged(object sender, ProcessStateChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(DateTime.Now.ToLongTimeString() + " " + e);
+            Debug.WriteLine(DateTime.Now.ToLongTimeString() + " " + e);
             logControl.AddLogMessage(e.ToString());
+
+            if (e.StateChangeType == ProcessStateChangedEventArgs.StateChangeTypes.Created)
+            {
+                _processManagerTester.RunTest(Process.GetProcessById(e.ProcessProxy.Id));
+            }
         }
     }
 }

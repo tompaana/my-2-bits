@@ -101,8 +101,8 @@
     <Compile Include="..\SharedCode\Logging\LogItem.cs">
       <Link>Logging\LogItem.cs</Link>
     </Compile>
-    <Compile Include="..\SharedCode\ProcessMonitoring\EventBasedProcessMonitor.cs">
-      <Link>ProcessMonitoring\EventBasedProcessMonitor.cs</Link>
+    <Compile Include="..\SharedCode\ProcessMonitoring\EventBasedProcessMonitorUniversal.cs">
+      <Link>ProcessMonitoring\EventBasedProcessMonitorUniversal.cs</Link>
     </Compile>
     <Compile Include="..\SharedCode\ProcessMonitoring\ProcessProxy.cs">
       <Link>ProcessMonitoring\ProcessProxy.cs</Link>

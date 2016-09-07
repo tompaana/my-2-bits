@@ -105,7 +105,7 @@ namespace ProcessMonitoring
             Debug.WriteLine("--------------------------------------------------------------------------------");
         }
 
-        public static string ProcessStartInfoToString(Process process)
+        public static string ProcessStartInfoToString(Process process, bool includeEnvironmentVariables = false)
         {
             string processStartInfoAsString = "Start info of process " + process.ProcessName + ":\n";
 
@@ -114,13 +114,17 @@ namespace ProcessMonitoring
                 processStartInfoAsString += "\tArguments: " + process.StartInfo.Arguments + "\n";
                 processStartInfoAsString += "\tCreate no window: " + process.StartInfo.CreateNoWindow + "\n";
                 processStartInfoAsString += "\tDomain: " + process.StartInfo.Domain + "\n";
-                processStartInfoAsString += "\tEnvironment variables: " + process.StartInfo.EnvironmentVariables + "\n";
 
-                if (process.StartInfo.EnvironmentVariables != null)
+                if (includeEnvironmentVariables)
                 {
-                    foreach (string key in process.StartInfo.EnvironmentVariables.Keys)
+                    processStartInfoAsString += "\tEnvironment variables: " + process.StartInfo.EnvironmentVariables + "\n";
+
+                    if (process.StartInfo.EnvironmentVariables != null)
                     {
-                        processStartInfoAsString += "\t\t" + key + " => " + process.StartInfo.EnvironmentVariables[key] + "\n";
+                        foreach (string key in process.StartInfo.EnvironmentVariables.Keys)
+                        {
+                            processStartInfoAsString += "\t\t" + key + " => " + process.StartInfo.EnvironmentVariables[key] + "\n";
+                        }
                     }
                 }
 
@@ -145,7 +149,8 @@ namespace ProcessMonitoring
             return processStartInfoAsString;
         }
 
-        public static string ProcessDetailsToString(Process process, bool includeThreadInfo = false)
+        public static string ProcessDetailsToString(
+            Process process, bool includeThreadInfo = false, bool includeEnvironmentVariables = false)
         {
             string processDetailsAsString = "Process name: " + process.ProcessName + "\n";
             processDetailsAsString += "ID: " + process.Id + "\n";
@@ -307,7 +312,7 @@ namespace ProcessMonitoring
                 processDetailsAsString += "Standard output: " + e.Message + "\n";
             }
 
-            processDetailsAsString += ProcessStartInfoToString(process);
+            processDetailsAsString += ProcessStartInfoToString(process, includeEnvironmentVariables);
 
             try
             {

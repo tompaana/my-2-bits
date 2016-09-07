@@ -7,7 +7,7 @@ namespace ProcessMonitoring
     /// Note that in order to use this class you need to have an event loop in place.
     /// For instance, this class cannot function in a basic console app.
     /// </summary>
-    public class EventBasedProcessMonitor
+    public class EventBasedProcessMonitorUniversal
     {
         public event EventHandler<ProcessStateChangedEventArgs> ProcessStateChanged;
 
@@ -21,11 +21,11 @@ namespace ProcessMonitoring
         private const uint WINEVENT_OUTOFCONTEXT = 0;
         private const uint EVENT_SYSTEM_FOREGROUND = 3;
 
-        private static EventBasedProcessMonitor _eventBasedProcessMonitor;
+        private static EventBasedProcessMonitorUniversal _eventBasedProcessMonitor;
         private WinEventProc _listener;
         private IntPtr _winHook;
 
-        public EventBasedProcessMonitor()
+        public EventBasedProcessMonitorUniversal()
         {
             _eventBasedProcessMonitor = this;
         }
