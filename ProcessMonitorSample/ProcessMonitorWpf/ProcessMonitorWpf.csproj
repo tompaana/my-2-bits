@@ -72,41 +72,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="..\ProcessMonitorUwp\Logging\LogItemControl.xaml">
-      <Link>LoggingLinks\LogItemControl.xaml</Link>
+    <Page Include="..\SharedCode\Logging\LogControl.xaml">
+      <Link>Logging\LogControl.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Logging\LogControlWpf.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\EventBasedProcessMonitorWin32.cs">
-      <Link>ProcessMonitoringLinks\EventBasedProcessMonitorWin32.cs</Link>
+    <Compile Include="..\SharedCode\Logging\LogControl.xaml.cs">
+      <Link>Logging\LogControl.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\SharedCode\Logging\LogItem.cs">
+      <Link>Logging\LogItem.cs</Link>
+    </Compile>
+    <Compile Include="..\SharedCode\ProcessMonitoring\EventBasedProcessMonitorWin32.cs">
+      <Link>ProcessMonitoring\EventBasedProcessMonitorWin32.cs</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\ProcessProxy.cs">
-      <Link>ProcessMonitoringLinks\ProcessProxy.cs</Link>
+    <Compile Include="..\SharedCode\ProcessMonitoring\ProcessManager.cs">
+      <Link>ProcessMonitoring\ProcessManager.cs</Link>
     </Compile>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\ProcessStateChangedEventArgs.cs">
-      <Link>ProcessMonitoringLinks\ProcessStateChangedEventArgs.cs</Link>
+    <Compile Include="..\SharedCode\ProcessMonitoring\ProcessProxy.cs">
+      <Link>ProcessMonitoring\ProcessProxy.cs</Link>
     </Compile>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\Win32Process.cs">
-      <Link>ProcessMonitoringLinks\Win32Process.cs</Link>
+    <Compile Include="..\SharedCode\ProcessMonitoring\ProcessStateChangedEventArgs.cs">
+      <Link>ProcessMonitoring\ProcessStateChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\SharedCode\ProcessMonitoring\Win32Process.cs">
+      <Link>ProcessMonitoring\Win32Process.cs</Link>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="..\ProcessMonitorUwp\Logging\LogControl.xaml.cs">
-      <Link>LoggingLinks\LogControl.xaml.cs</Link>
-    </Compile>
-    <Compile Include="..\ProcessMonitorUwp\Logging\LogItem.cs">
-      <Link>LoggingLinks\LogItem.cs</Link>
-    </Compile>
-    <Compile Include="..\ProcessMonitorUwp\Logging\LogItemControl.xaml.cs">
-      <Link>LoggingLinks\LogItemControl.xaml.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

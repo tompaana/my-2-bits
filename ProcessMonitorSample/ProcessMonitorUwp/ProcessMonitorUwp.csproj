@@ -92,29 +92,28 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\ProcessMonitorConsole\CommunicationProtocol\Keys.cs">
+    <Compile Include="..\SharedCode\CommunicationProtocol\Keys.cs">
       <Link>CommunicationProtocol\Keys.cs</Link>
     </Compile>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\EventBasedProcessMonitor.cs">
-      <Link>ProcessMonitoringLinks\EventBasedProcessMonitor.cs</Link>
+    <Compile Include="..\SharedCode\Logging\LogControl.xaml.cs">
+      <Link>Logging\LogControl.xaml.cs</Link>
     </Compile>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\ProcessProxy.cs">
-      <Link>ProcessMonitoringLinks\ProcessProxy.cs</Link>
+    <Compile Include="..\SharedCode\Logging\LogItem.cs">
+      <Link>Logging\LogItem.cs</Link>
     </Compile>
-    <Compile Include="..\ProcessMonitorConsole\ProcessMonitoring\ProcessStateChangedEventArgs.cs">
-      <Link>ProcessMonitoringLinks\ProcessStateChangedEventArgs.cs</Link>
+    <Compile Include="..\SharedCode\ProcessMonitoring\EventBasedProcessMonitor.cs">
+      <Link>ProcessMonitoring\EventBasedProcessMonitor.cs</Link>
+    </Compile>
+    <Compile Include="..\SharedCode\ProcessMonitoring\ProcessProxy.cs">
+      <Link>ProcessMonitoring\ProcessProxy.cs</Link>
+    </Compile>
+    <Compile Include="..\SharedCode\ProcessMonitoring\ProcessStateChangedEventArgs.cs">
+      <Link>ProcessMonitoring\ProcessStateChangedEventArgs.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppServiceBridgeManager.cs" />
-    <Compile Include="Logging\LogControl.xaml.cs">
-      <DependentUpon>LogControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Logging\LogItem.cs" />
-    <Compile Include="Logging\LogItemControl.xaml.cs">
-      <DependentUpon>LogItemControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -141,13 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Logging\LogControl.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="..\SharedCode\Logging\LogControl.xaml">
+      <Link>Logging\LogControl.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Logging\LogItemControl.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
