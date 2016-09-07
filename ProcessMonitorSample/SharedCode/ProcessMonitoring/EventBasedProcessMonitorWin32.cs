@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿/*
+ * SOURCE NOTICE
+ * 
+ * The code in this file was adopted from a post in Wes' Puzzling Blog:
+ * http://weblogs.asp.net/whaggard/438006
+ */
+
+using System;
 using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 using WMI.Win32;
 
 namespace ProcessMonitoring
 {
+    /// <summary>
+    /// Event based process monitor that can detect creation, modification and deletion of processes.
+    /// The code is compatible with Win32 (e.g. WPF) apps.
+    /// 
+    /// Note that Win32Process class was generated with mgmtclassgen.exe tool by running
+    /// the following command: mgmtclassgen Win32_Process /n root\cimv2 /o WMI.Win32
+    /// The command produced Process class, which was then renamed to distinguish it from
+    /// the Process class defined in System.Diagnostics namespace.
+    /// </summary>
     public class EventBasedProcessMonitorWin32 : ManagementEventWatcher
     {
         public event EventHandler<ProcessStateChangedEventArgs> ProcessStateChanged;

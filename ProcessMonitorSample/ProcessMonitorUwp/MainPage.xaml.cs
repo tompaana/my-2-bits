@@ -1,19 +1,8 @@
 ﻿using CommunicationProtocol;
 using ProcessMonitoring;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace ProcessMonitorUwp
@@ -61,8 +50,6 @@ namespace ProcessMonitorUwp
 
         private async void OnProcessStateChangedAsync(object sender, ProcessStateChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("OnProcessStateChangedAsync: " + e);
-
             if (_appServiceBridgeManager.BackgroundProcessLaunched)
             {
                 string responseValue = await _appServiceBridgeManager.SendRequestToBackgroundProcessAsync(
@@ -72,9 +59,14 @@ namespace ProcessMonitorUwp
 
                 if (processProxy != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("OnProcessStateChangedAsync: " + processProxy);
+                    System.Diagnostics.Debug.WriteLine("OnProcessStateChangedAsync: " + e + " " + processProxy);
                     logControl.AddLogMessage("Process state changed: " + e.ToString() + " " + processProxy.ToString());
                 }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("OnProcessStateChangedAsync: " + e);
+                logControl.AddLogMessage("Process state changed: " + e.ToString());
             }
         }
     }

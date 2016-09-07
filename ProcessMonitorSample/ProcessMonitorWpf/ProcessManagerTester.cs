@@ -62,7 +62,7 @@ namespace ProcessMonitorWpf
                     else
                     {
                         LogMessage("RunTest: Cannot test killing/restarting process "
-                            + processDetails + " since the file name is missing from the start info");
+                            + processDetails + " - the process could not be restarted since the file name is missing from the start info");
                         runSuspendAndResumeTest = true;
                     }
                 }

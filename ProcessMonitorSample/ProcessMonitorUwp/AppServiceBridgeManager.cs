@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * SOURCE NOTICE
+ * 
+ * The code in this file was adopted from AppService Bridge Sample by Microsoft
+ * (https://github.com/Microsoft/DesktopBridgeToUWP-Samples/tree/master/Samples/AppServiceBridgeSample)
+ * licensed under MIT, see https://github.com/Microsoft/DesktopBridgeToUWP-Samples/blob/master/LICENSE
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;

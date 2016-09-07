@@ -5,6 +5,15 @@ using System.Runtime.InteropServices;
 
 namespace ProcessMonitoring
 {
+    /// <summary>
+    /// A process monitor that can be used to detect created and removed processes as well as
+    /// the change of the top-most (foreground) process.
+    /// 
+    /// This monitor is used in polling manner so the frequency of events depend on how ofter
+    /// UpdateProcessList method is called.
+    /// 
+    /// The code is compatible with Win32 apps.
+    /// </summary>
     public class PollingProcessMonitor
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]

@@ -1,15 +1,21 @@
-﻿using System;
+﻿/*
+ * SOURCE NOTICE
+ * 
+ * The code in this file was adopted from stack overflow answer by Magnus Johanson
+ * (http://stackoverflow.com/users/3584/magnus). The original stack overflow discussion -
+ * as of writing this - can found at http://stackoverflow.com/questions/71257/suspend-process-in-c-sharp
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProcessMonitoring
 {
     /// <summary>
-    /// http://stackoverflow.com/questions/71257/suspend-process-in-c-sharp
+    /// Process manager for killing, restarting, suspending and resuming processes.
+    /// The code is compatible with Win32 (e.g. WPF) apps.
     /// </summary>
     public class ProcessManager
     {
