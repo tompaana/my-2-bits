@@ -30,9 +30,10 @@ namespace ProcessMonitoring
         }
 
         /// <summary>
-        /// 
+        /// Updates the existing process list and detects possible changes.
+        /// The detected changes will fire events ProcessListChanged and/or ForegroundProcessChanged.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True, if changes were detected. False otherwise.</returns>
         public bool UpdateProcessList()
         {
             ProcessListChangedEventArgs processListChangedEventArgs =

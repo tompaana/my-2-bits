@@ -10,6 +10,8 @@ namespace ProcessMonitorConsole
 {
     class Program
     {
+        private const int PollingFrequencyInMilliseconds = 200;
+
         static void Main(string[] args)
         {
             Logger.Log("--- Process Monitor console ---");
@@ -23,7 +25,7 @@ namespace ProcessMonitorConsole
             while (true)
             {
                 processMonitor.UpdateProcessList();
-                Thread.Sleep(200);
+                Thread.Sleep(PollingFrequencyInMilliseconds);
             }
         }
     }

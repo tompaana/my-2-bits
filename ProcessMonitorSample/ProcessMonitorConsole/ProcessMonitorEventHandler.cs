@@ -1,13 +1,11 @@
 ﻿using ProcessMonitoring;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProcessMonitorConsole
 {
+    /// <summary>
+    /// Handles the events fired by PollingProcessMonitor.
+    /// </summary>
     public class ProcessMonitorEventHandler
     {
         private PollingProcessMonitor _processMonitor;
