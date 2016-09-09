@@ -73,11 +73,22 @@ So what you get back about the process is its window handle and that's about it.
 Luckily, with AppService Bridge we can establish a communication with a Win32
 console app - in this case with ProcessMonitorConsole. We can then send a
 request to the console app and get the process details back by the window
-handle. For more information see [AppServiceBridgeManager.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorUwp/AppServiceBridgeManager.cs)
+handle. For more information see [AppServiceBridgeManager.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorUwp/AppServiceBridgeManager.cs).
+
+Note: The `ProcessMonitorConsole.exe` is copied manually in the build process.
+If the console app doesn't launch automatically with ProcessMonitorUwp app, try
+rebuilding the solution.
 
 ### Process Monitor - WPF ###
 
+### Summary ###
 
+| Class                                                                                                                                                                         | Compatibility | Features                                                                                                                                                                                                                                              |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [PollingProcessMonitor](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/SharedCode/ProcessMonitoring/PollingProcessMonitor.cs)                         | Win32         | Detects new (created), removed (deleted) processes and changes in foreground.                                                                                                                                                                         |
+| [EventBasedProcessMonitorUniversal](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/SharedCode/ProcessMonitoring/EventBasedProcessMonitorUniversal.cs) | Win32, UWP    | Detects changes in foreground. Note: There are many other events that can be detected, but they did not apply to this solution. To learn more see [Event Constants](https://msdn.microsoft.com/en-us/library/windows/desktop/dd318066(v=vs.85).aspx). |
+| [EventBasedProcessMonitorWin32](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/SharedCode/ProcessMonitoring/EventBasedProcessMonitorWin32.cs)         | Win32         | Detects new (created), modified and removed (deleted) processes.                                                                                                                                                                                      |
+| [ProcessManager](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/SharedCode/ProcessMonitoring/ProcessManager.cs)                                       | Win32         | Can kill, restart, suspend and resume processes.                                                                                                                                                                                                      |
 
 ## AppService Bridge ##
 
