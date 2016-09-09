@@ -81,6 +81,19 @@ rebuilding the solution.
 
 ### Process Monitor - WPF ###
 
+Process Monitor WPF app utilizes [EventBasedProcessMonitorWin32](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/SharedCode/ProcessMonitoring/EventBasedProcessMonitorWin32.cs)
+and can detect new (created), modified and removed (deleted) processes. The app
+also features a process manager, which can manipulate processes (kill, restart,
+suspend and resume). The process management is implemented in - you guessed it -
+[ProcessManager class](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/SharedCode/ProcessMonitoring/ProcessManager.cs).
+To test it, [ProcessManagerTester class](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorWpf/ProcessManagerTester.cs)
+is provided. In the project the `ProcessManagerTester` is hard-coded to react
+on creation of any app (process) whose name starts with `notepad`. It will try
+to kill and restart it (given that the [StartInfo](https://msdn.microsoft.com/en-us/library/system.diagnostics.processstartinfo(v=vs.110).aspx)
+contains the process' file name), which might not be the case), then suspend and
+resume. See [MainWindow.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorWpf/MainWindow.xaml.cs)
+to see how `ProcessManagerTester` is used.
+
 ### Summary ###
 
 | Class                                                                                                                                                                         | Compatibility | Features                                                                                                                                                                                                                                              |
