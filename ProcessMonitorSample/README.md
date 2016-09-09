@@ -86,7 +86,7 @@ and can detect new (created), modified and removed (deleted) processes. The app
 also features a process manager, which can manipulate processes (kill, restart,
 suspend and resume). The process management is implemented in - you guessed it -
 [ProcessManager class](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/SharedCode/ProcessMonitoring/ProcessManager.cs).
-To test it, [ProcessManagerTester class](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorWpf/ProcessManagerTester.cs)
+To test it [ProcessManagerTester class](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorWpf/ProcessManagerTester.cs)
 is provided. In the project the `ProcessManagerTester` is hard-coded to react
 on creation of any app (process) whose name starts with `notepad`. It will try
 to kill and restart it (given that the [StartInfo](https://msdn.microsoft.com/en-us/library/system.diagnostics.processstartinfo(v=vs.110).aspx)
@@ -105,7 +105,130 @@ to see how `ProcessManagerTester` is used.
 
 ## AppService Bridge ##
 
-TBD
+AppService Bridge is a mechanism to allow inter-process communication between -
+in this case - UWP and a standard Win32 console application. The message
+exchange utilizes [ValueSet](https://msdn.microsoft.com/library/windows/apps/dn636131)
+class. The message protocol used in this solution is JSON based. The UWP app is
+in charge i.e. it sends the requests and waits for the console app to respond.
+
+### Required changes in UWP app project and `App.xaml.cs` files ###
+
+There are several changes that need to be done to UWP project files to enable
+the AppService Bridge functionality. Most of the changes required are in
+[Package.appxmanifest](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorUwp/Package.appxmanifest)
+file.
+
+1. You need to have restricted capabilities and desktop namespaces defined:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  IgnorableNamespaces="uap mp rescap desktop">
+  
+  ...
+```
+
+2. Set `TargetDeviceFamily` `Name` to `Windows.Desktop` (Note that the version
+   number may be different depending on your SDK and Windows version):
+
+```xml
+  <Dependencies>
+    <!-- <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" /> -->
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14332.0" MaxVersionTested="10.0.14332.0" />
+  </Dependencies>
+```
+
+3. Define the extension:
+
+```xml
+      ...
+      
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="CommunicationService" />
+        </uap:Extension>
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="ProcessMonitorConsole.exe" />
+      </Extensions>
+    </Application>
+    
+    ...
+```
+
+4. To capabilities add `runFullTrust` (Note the namespace):
+
+```xml
+  ...
+  
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
+```    
+    
+
+The console app executable is copied in [ProcessMonitorUwp.csproj](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorUwp/ProcessMonitorUwp.csproj)
+as post-build event command:
+
+```xml
+  ...
+  
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y /s "$(SolutionDir)ProcessMonitorConsole\bin\$(Configuration)\ProcessMonitorConsole.exe" "$(SolutionDir)\ProcessMonitorUwp\bin\x64\$(Configuration)\AppX\"
+xcopy /y /s "$(SolutionDir)ProcessMonitorConsole\bin\$(Configuration)\ProcessMonitorConsole.exe" "$(SolutionDir)\ProcessMonitorUwp\bin\x86\$(Configuration)\AppX\"</PostBuildEvent>
+  </PropertyGroup>
+  
+  ...
+  
+</Project>
+```
+
+In [App.xaml.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorUwp/App.xaml.cs)
+you need to have `OnBackgroundActivated` implemented:
+
+```cs
+        public static AppServiceConnection AppServiceConnection
+        {
+            get;
+            set;
+        }
+
+        private BackgroundTaskDeferral _appServiceDeferral;
+
+        ...
+
+        /// <summary>
+        /// Initializes the app service on the host process 
+        /// </summary>
+        protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            base.OnBackgroundActivated(args);
+
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
+            {
+                _appServiceDeferral = args.TaskInstance.GetDeferral();
+                AppServiceTriggerDetails details = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
+                AppServiceConnection = details.AppServiceConnection;
+            }
+        }
+```
+
+### See the implemenation and the dedicated sample app to learn more ###
+
+* Console app
+ * [AppServiceConnectionManager.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorConsole/AppServiceConnectionManager.cs)
+ * [AppServiceConnectionRequestHandler.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorConsole/AppServiceConnectionRequestHandler.cs)
+* UWP app
+ * [AppServiceBridgeManager.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorUwp/AppServiceBridgeManager.cs)
+* Microsoft sample app: https://github.com/Microsoft/DesktopBridgeToUWP-Samples/tree/master/Samples/AppServiceBridgeSample
 
 ## Source notice and acknowledgements ##
 
