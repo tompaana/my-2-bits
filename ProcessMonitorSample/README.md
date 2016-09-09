@@ -111,7 +111,7 @@ exchange utilizes [ValueSet](https://msdn.microsoft.com/library/windows/apps/dn6
 class. The message protocol used in this solution is JSON based. The UWP app is
 in charge i.e. it sends the requests and waits for the console app to respond.
 
-### Required changes in UWP app project and `App.xaml.cs` files ###
+#### Required changes in UWP app project and `App.xaml.cs` files ####
 
 There are several changes that need to be done to UWP project files to enable
 the AppService Bridge functionality. Most of the changes required are in
@@ -220,7 +220,7 @@ you need to have `OnBackgroundActivated` implemented:
         }
 ```
 
-### See the implemenation and the dedicated sample app to learn more ###
+#### See the implemenation and the dedicated sample app to learn more ####
 
 * Console app
  * [AppServiceConnectionManager.cs](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorConsole/AppServiceConnectionManager.cs)
