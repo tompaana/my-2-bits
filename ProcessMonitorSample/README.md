@@ -120,60 +120,59 @@ file.
 
 1. You need to have restricted capabilities and desktop namespaces defined:
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  IgnorableNamespaces="uap mp rescap desktop">
-  
-  ...
-```
+    ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <Package
+      xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+      xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+      xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+      xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+      xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+      IgnorableNamespaces="uap mp rescap desktop">
+      
+      ...
+    ```
 
 2. Set `TargetDeviceFamily` `Name` to `Windows.Desktop` (Note that the version
    number may be different depending on your SDK and Windows version):
 
-```xml
-  <Dependencies>
-    <!-- <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" /> -->
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14332.0" MaxVersionTested="10.0.14332.0" />
-  </Dependencies>
-```
+    ```xml
+      <Dependencies>
+        <!-- <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" /> -->
+        <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14332.0" MaxVersionTested="10.0.14332.0" />
+      </Dependencies>
+    ```
 
 3. Define the extension:
 
-```xml
-      ...
-      
-      </uap:VisualElements>
-      <Extensions>
-        <uap:Extension Category="windows.appService">
-          <uap:AppService Name="CommunicationService" />
-        </uap:Extension>
-        <desktop:Extension Category="windows.fullTrustProcess" Executable="ProcessMonitorConsole.exe" />
-      </Extensions>
-    </Application>
-    
-    ...
-```
+    ```xml
+          ...
+          
+          </uap:VisualElements>
+          <Extensions>
+            <uap:Extension Category="windows.appService">
+              <uap:AppService Name="CommunicationService" />
+            </uap:Extension>
+            <desktop:Extension Category="windows.fullTrustProcess" Executable="ProcessMonitorConsole.exe" />
+          </Extensions>
+        </Application>
+        
+        ...
+    ```
 
 4. To capabilities add `runFullTrust` (Note the namespace):
 
-```xml
-  ...
-  
-  </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-    <rescap:Capability Name="runFullTrust" />
-  </Capabilities>
-</Package>
-```    
+    ```xml
+      ...
+      
+      </Applications>
+      <Capabilities>
+        <Capability Name="internetClient" />
+        <rescap:Capability Name="runFullTrust" />
+      </Capabilities>
+    </Package>
+    ```    
     
-
 The console app executable is copied in [ProcessMonitorUwp.csproj](https://github.com/tompaana/my-2-bits/blob/master/ProcessMonitorSample/ProcessMonitorUwp/ProcessMonitorUwp.csproj)
 as post-build event command:
 
